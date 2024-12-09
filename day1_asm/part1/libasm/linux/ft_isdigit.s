@@ -1,7 +1,7 @@
 section .text
-	global isdigit
+	global ft_isdigit
 
-isdigit:
+ft_isdigit:
 	push rbp
 	mov rbp, rsp
 	sub rsp, 16

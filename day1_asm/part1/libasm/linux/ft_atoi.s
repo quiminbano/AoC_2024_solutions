@@ -1,10 +1,10 @@
 section .text
-	global atoi
-	extern isspace
-	extern isdigit
+	global ft_atoi
+	extern ft_isspace
+	extern ft_isdigit
 
 ; const char *str is coming is loaded in rdi
-atoi:
+ft_atoi:
 	push rbp
 	mov rbp, rsp
 	sub rsp, 32 ; 0-8 = long result, 9-16 = long sign, 17-32 = empty space JIC
@@ -14,7 +14,7 @@ atoi:
 find_spaces_atoi: ; while (ft_isspace(str[i]))
 	push rdi ; backup str
 	movzx rdi, BYTE[rdi + rcx] ; load the character into rdi
-	call isspace
+	call ft_isspace
 	pop rdi ; restore the original pointer in rdi and aligns the stack again.
 	test rax, rax
 	jz check_plus_atoi
@@ -31,11 +31,11 @@ check_minus_atoi: ; if (str[i] == '-')
 	cmp rax, 45
 	jne loop_number_atoi
 	mov QWORD[rsp + 8], -1 ; sign = -1
-	inc rcx
+	inc rcx	
 loop_number_atoi: ; while (ft_isdigit(str[i]))
 	push rdi ; backup str
 	movzx rdi, BYTE[rdi + rcx] ; load the character into rdi
-	call isdigit
+	call ft_isdigit
 	pop rdi
 	test rax, rax
 	jz return_result_atoi
@@ -46,7 +46,7 @@ loop_number_atoi: ; while (ft_isdigit(str[i]))
 	jo check_neg_overflow_atoi ; if result * 10 overflows
 	movzx rdx, BYTE[rdi + rcx]
 	sub rdx, 48
-	add rax, rdx ;
+	add rax, rdx ; 
 	mov rdx, rax
 	shr rdx, 63 ; Shift the number 63 bits to the right to check if the most significant bit is setted. if it is, there is an overflow (long)
 	test rdx, 1 ;

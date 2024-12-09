@@ -1,7 +1,7 @@
 section .text
-	global isspace
+	global ft_isspace
 
-isspace:
+ft_isspace:
 	push rbp
 	mov rbp, rsp
 	sub rsp, 16
