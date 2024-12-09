@@ -62,6 +62,9 @@ sort_lists:
 	lea rdi, [rsp + 32]
 	lea rsi, [rel difference]
 	call ft_sort_list
+	lea rdi, [rsp + 40]
+	lea rsi [rel difference]
+	call ft_sort_list
 end_main:
 	add rsp, 56
 	mov rsp, rbp
